@@ -107,6 +107,11 @@ class AuthController extends Controller
 
         $token = Str::random(40);
 
+        return json_encode([
+            'token' => $token,
+            'user' => $fbUser
+        ]);
+
         return redirect("myapp://auth?token={$token}");
     }
 }
