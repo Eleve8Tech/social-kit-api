@@ -18,11 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->renderable(function (Throwable $e, $request) {
-                        dd($e);
-
             $code = $e->getCode() ?: 400;
             if($e instanceof HttpException) {
-                dd($e);
                 $code = $e->getStatusCode();
             }
             throw new ApiException($e->getMessage(), $code, $e);
