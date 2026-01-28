@@ -89,10 +89,9 @@ class AuthController extends Controller
     public function redirect()
     {
         return Socialite::driver('facebook')
-            ->scopes([
-                "public_profile",
-            ])
-            ->redirect();
+        ->scopes(['public_profile'])
+        ->with(['fields' => 'id,name'])
+        ->redirect();
     }
 
     public function callback()
