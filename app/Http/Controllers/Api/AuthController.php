@@ -10,6 +10,8 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -84,9 +86,27 @@ class AuthController extends Controller
         ], 400);
     }
 
-    public function loginFacebook(Request $request)
+    public function redirect()
     {
-        \Log::info('Facebook login endpoint hit', $request->all());
-        return json_encode(['message' => 'Facebook login not implemented yet']);
+        return Socialite::driver('facebook')
+            ->scopes([
+                "pages_show_list",
+                "pages_read_engagement",
+                "pages_manage_posts",
+                "pages_manage_engagement",
+                "pages_read_user_content",
+                "public_profile",
+            ])
+            ->redirect();
+    }
+
+    public function callback()
+    {
+        $fbUser = Socialite::driver('facebook')->user();
+
+
+        $token = Str::random(40);
+
+        return redirect("myapp://auth?token={$token}");
     }
 }
