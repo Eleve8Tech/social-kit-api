@@ -19,7 +19,6 @@ class CreatePlanRequest extends BaseRequest
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric'],
             'billing_cycle' => ['required', 'string', 'max:255', 'in:weekly,monthly,yearly'],
-            'trial_days' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

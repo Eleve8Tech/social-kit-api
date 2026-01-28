@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $this->service->register($request->validated());
-        
+
         return $this->response([
             'user' => new UserResource($data['user']),
             'access_token' => $data['access_token'],
@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        
+
         return $this->response([], 'Logged out successfully');
     }
 
@@ -82,5 +82,11 @@ class AuthController extends Controller
             'success' => false,
             'message' => 'Invalid token or email',
         ], 400);
+    }
+
+    public function loginFacebook(Request $request)
+    {
+        \Log::info('Facebook login endpoint hit', $request->all());
+        return json_encode(['message' => 'Facebook login not implemented yet']);
     }
 }

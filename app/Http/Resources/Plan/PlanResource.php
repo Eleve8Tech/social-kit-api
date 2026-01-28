@@ -21,7 +21,6 @@ class PlanResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'billing_cycle' => $this->billing_cycle,
-            'trial_days' => $this->trial_days,
             'features' => FeatureResource::collection($this->features),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
